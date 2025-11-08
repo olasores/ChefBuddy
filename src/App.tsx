@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -31,24 +31,23 @@ function Home() {
 }
 
 function AppRoutes() {
-  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    // Handle auth state changes globally
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_IN" && session) {
-        navigate("/");
-      } else if (event === "SIGNED_OUT") {
-        navigate("/login");
+    // Handle OAuth callback - check for access token in URL hash
+    const handleAuthCallback = async () => {
+      // Supabase will automatically handle the hash, but let's ensure the session is set
+      const { data } = await supabase.auth.getSession();
+      if (data?.session) {
+        // Clean up the URL by removing the hash
+        window.history.replaceState({}, document.title, window.location.pathname);
       }
-    });
-
-    return () => {
-      subscription?.unsubscribe();
     };
-  }, [navigate]);
+
+    if (location.hash.includes('access_token')) {
+      handleAuthCallback();
+    }
+  }, [location.hash]);
 
   return (
     <Routes>
