@@ -9,6 +9,7 @@ import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -26,6 +27,23 @@ function Home() {
         {/* <CallToAction /> */}
       </main>
       <Footer />
+    </div>
+  );
+}
+
+function AuthCallback() {
+  useEffect(() => {
+    // Supabase automatically processes the OAuth callback
+    // Redirect to dashboard after processing
+    const timer = setTimeout(() => {
+      window.location.href = '/dashboard';
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <p className="text-gray-600">Processing login...</p>
     </div>
   );
 }
@@ -54,6 +72,8 @@ function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/auth/callback" element={<AuthCallback />} />
     </Routes>
   );
 }
