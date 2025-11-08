@@ -9,6 +9,7 @@ import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -54,6 +55,7 @@ function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
 }

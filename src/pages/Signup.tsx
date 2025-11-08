@@ -17,10 +17,15 @@ export default function Signup() {
       setLoading(true);
       setError(null);
 
+      // Determine redirect URL based on environment
+      const redirectUrl = window.location.hostname === 'localhost' 
+        ? 'http://localhost:5174/dashboard'
+        : 'https://chef-buddy-rouge.vercel.app/dashboard';
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: 'https://chef-buddy-rouge.vercel.app',
+          redirectTo: redirectUrl,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
