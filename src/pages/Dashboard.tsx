@@ -48,9 +48,9 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-12">
-          <h1 className="text-4xl font-bold text-gray-900">Dashboard</h1>
+          <h1 className="text-4xl font-bold text-gray-900">Welcome, {user?.user_metadata?.name || 'User'}!</h1>
           <button
             onClick={handleLogout}
             className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
@@ -61,39 +61,36 @@ export default function Dashboard() {
         </div>
 
         <div className="bg-white rounded-3xl shadow-xl p-8">
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Welcome back!</h2>
-            <div className="space-y-3">
-              <p className="text-gray-700">
-                <span className="font-semibold">Email:</span> {user?.email}
+          <div className="space-y-6">
+            {user?.user_metadata?.picture && (
+              <div className="flex justify-center">
+                <img 
+                  src={user.user_metadata.picture} 
+                  alt="Profile" 
+                  className="w-24 h-24 rounded-full border-4 border-orange-400"
+                />
+              </div>
+            )}
+            
+            <div className="text-center">
+              <p className="text-gray-600 text-lg">
+                <span className="font-semibold text-gray-900">{user?.email}</span>
               </p>
-              {user?.user_metadata?.name && (
-                <p className="text-gray-700">
-                  <span className="font-semibold">Name:</span> {user.user_metadata.name}
+              {user?.user_metadata?.full_name && (
+                <p className="text-gray-500 text-sm mt-2">
+                  {user.user_metadata.full_name}
                 </p>
               )}
-              <p className="text-gray-700">
-                <span className="font-semibold">User ID:</span> {user?.id}
-              </p>
             </div>
-          </div>
 
-          <div className="border-t pt-8">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">User Details</h3>
-            <div className="bg-gray-50 rounded-lg p-6">
-              <pre className="text-sm text-gray-600 overflow-auto">
-                {JSON.stringify(user, null, 2)}
-              </pre>
+            <div className="border-t pt-6 text-center">
+              <button
+                onClick={() => navigate('/')}
+                className="text-orange-600 font-semibold hover:text-orange-700 transition-colors"
+              >
+                ← Back to Home
+              </button>
             </div>
-          </div>
-
-          <div className="border-t mt-8 pt-8">
-            <button
-              onClick={() => navigate('/')}
-              className="text-orange-600 font-semibold hover:text-orange-700 transition-colors"
-            >
-              ← Back to Home
-            </button>
           </div>
         </div>
       </div>
