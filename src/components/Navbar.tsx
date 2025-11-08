@@ -13,9 +13,8 @@ export function Navbar() {
         <div className="flex items-center gap-6">
           <a href="#features" className="text-gray-600 hover:text-orange-500 transition-colors font-medium">Features</a>
           <a href="#how-it-works" className="text-gray-600 hover:text-orange-500 transition-colors font-medium">How It Works</a>
-          <button className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all">
-            Get Started
-          </button>
+          <a href="/login" className="text-gray-600 hover:text-orange-500 transition-colors font-medium">Log In</a>
+          <a href="/signup" className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all">Get Started</a>
         </div>
       </div>
     </nav>
