@@ -1,4 +1,4 @@
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export function Hero() {
   return (
@@ -17,13 +17,13 @@ export function Hero() {
           </p>
 
           <div className="flex items-center gap-4">
-            <button className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl hover:scale-105 transition-all flex items-center gap-2">
+            <a href="/signup" className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl hover:scale-105 transition-all flex items-center gap-2">
               Get Started
               <ArrowRight className="w-5 h-5" />
-            </button>
-            <button className="bg-white text-gray-700 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transition-all border-2 border-gray-200">
+            </a>
+            <a href="/login" className="bg-white text-gray-700 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transition-all border-2 border-gray-200">
              Log In
-            </button>
+            </a>
           </div>
 
          
