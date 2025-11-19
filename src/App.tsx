@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from './lib/supabase';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 // import { Features } from './components/Features';
@@ -10,11 +10,8 @@ import { Footer } from './components/Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import Chatbot from './pages/Chatbot';
 
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
 
 function Home() {
   return (
@@ -72,6 +69,7 @@ function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+        <Route path="/chatbot" element={<Chatbot />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
     </Routes>
