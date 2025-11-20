@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 // import { Features } from './components/Features';
-// import { HowItWorks } from './components/HowItWorks';
+import { HowItWorks } from './components/HowItWorks';
 // import { CallToAction } from './components/CallToAction';
 import { Footer } from './components/Footer';
 import Login from './pages/Login';
@@ -23,7 +23,7 @@ function Home() {
       <main className="pt-32 pb-20">
         <Hero />
         {/* <Features /> */}
-        {/* <HowItWorks /> */}
+        <HowItWorks />
         {/* <CallToAction /> */}
       </main>
       <Footer />
