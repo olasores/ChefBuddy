@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-// import { Features } from './components/Features';
+import { Features } from './components/Features';
 // import { HowItWorks } from './components/HowItWorks';
 // import { CallToAction } from './components/CallToAction';
 import { Footer } from './components/Footer';
@@ -22,7 +22,7 @@ function Home() {
       <Navbar />
       <main className="pt-32 pb-20">
         <Hero />
-        {/* <Features /> */}
+        <Features />
         {/* <HowItWorks /> */}
         {/* <CallToAction /> */}
       </main>
