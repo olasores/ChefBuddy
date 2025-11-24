@@ -1,4 +1,5 @@
 import { ChefHat } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export function Navbar() {
   return (
@@ -11,10 +12,11 @@ export function Navbar() {
           <span className="text-2xl font-bold text-gray-800">Chef Buddy</span>
         </div>
         <div className="flex items-center gap-6">
+          <Link to="/chatbot" className="text-gray-600 hover:text-orange-500 transition-colors font-medium">Chatbot</Link>
           <a href="#features" className="text-gray-600 hover:text-orange-500 transition-colors font-medium">Features</a>
           <a href="#how-it-works" className="text-gray-600 hover:text-orange-500 transition-colors font-medium">How It Works</a>
-          <a href="/login" className="text-gray-600 hover:text-orange-500 transition-colors font-medium">Log In</a>
-          <a href="/signup" className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all">Get Started</a>
+          <Link to="/login" className="text-gray-600 hover:text-orange-500 transition-colors font-medium">Log In</Link>
+          <Link to="/signup" className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all">Get Started</Link>
         </div>
       </div>
     </nav>

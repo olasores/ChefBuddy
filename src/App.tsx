@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import Chatbot from './pages/Chatbot';
 
 function Home() {
   return (
@@ -70,6 +71,7 @@ function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+        <Route path="/chatbot" element={<Chatbot />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
     </Routes>
