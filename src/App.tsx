@@ -4,6 +4,9 @@ import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { Features } from './components/Features';
+import { HowItWorks } from './components/HowItWorks';
+// import { CallToAction } from './components/CallToAction';
 import { Footer } from './components/Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -15,6 +18,9 @@ function Home() {
       <Navbar />
       <main className="pt-32 pb-20">
         <Hero />
+        <Features />
+        <HowItWorks />
+        {/* <CallToAction /> */}
       </main>
       <Footer />
     </div>
