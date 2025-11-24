@@ -1,21 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+// FIX: Changing the import path back to the explicit .js extension.
+// This is the most robust solution when the bundler struggles with implicit resolution.
+import { supabase } from '../lib/supabase.js';
 import { LogOut } from 'lucide-react';
-import type { User } from '@supabase/supabase-js';
+// The type import is causing a compilation error in a pure .jsx environment.
+// Since we are generating .jsx, we remove the TypeScript-specific type import and annotation.
+// import type { User } from '@supabase/supabase-js'; 
 
 export default function Dashboard() {
-  const [user, setUser] = useState<User | null>(null);
+  // Use 'any' or simply omit the explicit type annotation for User in a pure .jsx context
+  const [user, setUser] = useState(null); 
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
       try {
+        // Fetch the current authenticated user's session data
         const { data } = await supabase.auth.getUser();
         if (data?.user) {
           setUser(data.user);
         } else {
+          // If no user is found, redirect to login
           navigate('/login');
         }
       } catch (error) {
@@ -29,9 +36,13 @@ export default function Dashboard() {
     getUser();
   }, [navigate]);
 
+  /**
+   * Handles user logout via Supabase.
+   */
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
+      // Redirect to login page after successful sign out
       navigate('/login');
     } catch (error) {
       console.error('Error logging out:', error);
@@ -41,50 +52,90 @@ export default function Dashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50">
-        <p className="text-gray-600">Loading...</p>
+        <p className="text-xl font-semibold text-gray-700 animate-pulse">Loading Chef Buddy Dashboard...</p>
       </div>
     );
   }
 
+  // Fallback for user metadata if not present (e.g., if using email/password login without profile data)
+  const displayName = user?.user_metadata?.full_name || user?.email || 'Authenticated User';
+  const profilePicture = user?.user_metadata?.picture;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50 py-12 px-4">
-      <div className="max-w-2xl mx-auto">
-        <div className="flex items-center justify-between mb-12">
-          <h1 className="text-4xl font-bold text-gray-900">Welcome, {user?.user_metadata?.name || 'User'}!</h1>
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        
+        {/* Header and Logout Button */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-12 bg-white p-6 rounded-2xl shadow-lg border-t-4 border-orange-500">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4 sm:mb-0">
+            Welcome, {displayName.split(' ')[0]}!
+          </h1>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
+            className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:bg-red-700 transition duration-150 ease-in-out transform hover:scale-[1.02]"
           >
             <LogOut className="w-5 h-5" />
-            Logout
+            Sign Out
           </button>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8">
-          <div className="space-y-6">
-            {user?.user_metadata?.picture && (
+        {/* Dashboard Content Card */}
+        <div className="bg-white rounded-3xl shadow-2xl p-8 sm:p-10 border-b-8 border-amber-400">
+          <div className="space-y-8">
+            
+            {/* Profile Image */}
+            {profilePicture && (
               <div className="flex justify-center">
                 <img 
-                  src={user.user_metadata.picture} 
+                  src={profilePicture} 
                   alt="Profile" 
-                  className="w-24 h-24 rounded-full border-4 border-orange-400"
+                  // Added onerror to provide a fallback image/behavior if the URL is broken
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/128x128/f97316/ffffff?text=C+B'; e.target.alt = 'Default Profile Icon'; }}
+                  className="w-32 h-32 rounded-full object-cover border-6 border-orange-400 ring-4 ring-orange-100 shadow-xl"
                 />
               </div>
             )}
             
-            <div className="text-center">
-              <p className="text-gray-600 text-lg">
-                <span className="font-semibold text-gray-900">{user?.email}</span>
+            {/* User Details */}
+            <div className="text-center space-y-2">
+              <h2 className="text-2xl font-bold text-gray-900">
+                {user?.user_metadata?.full_name || 'No Full Name Available'}
+              </h2>
+              <p className="text-gray-600 text-md">
+                <span className="font-medium text-orange-600">{user?.email}</span>
               </p>
-              {user?.user_metadata?.full_name && (
-                <p className="text-gray-500 text-sm mt-2">
-                  {user.user_metadata.full_name}
+              {user?.user_metadata?.other_info && (
+                <p className="text-gray-500 text-sm italic pt-2">
+                  Info: {user.user_metadata.other_info}
                 </p>
               )}
             </div>
 
-            <div className="border-t pt-6 text-center">
+            {/* Application Section */}
+            <div className="border-t border-gray-100 pt-8">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">Your Chef Buddy Tools</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <button 
+                  onClick={() => console.log('Navigate to Recipes')} // Placeholder
+                  className="p-4 bg-orange-50 hover:bg-orange-100 rounded-xl transition duration-150 text-left"
+                >
+                  <p className="font-semibold text-orange-700">Manage Recipes</p>
+                  <p className="text-sm text-gray-500">Create, edit, and discover new dishes.</p>
+                </button>
+                <button 
+                  onClick={() => console.log('Navigate to Meal Planner')} // Placeholder
+                  className="p-4 bg-orange-50 hover:bg-orange-100 rounded-xl transition duration-150 text-left"
+                >
+                  <p className="font-semibold text-orange-700">Meal Planner</p>
+                  <p className="text-sm text-gray-500">Plan your week of meals efficiently.</p>
+                </button>
+              </div>
+            </div>
+
+            {/* Back to Home */}
+            <div className="border-t border-gray-100 pt-6 text-center">
               <button
+                type="button"
                 onClick={() => navigate('/')}
                 className="text-orange-600 font-semibold hover:text-orange-700 transition-colors"
               >

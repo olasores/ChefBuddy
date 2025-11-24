@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
+// 💡 Corrected imports: Removed useLocation as it's no longer needed in AppRoutes
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'; 
+import { supabase } from './lib/supabase';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Features } from './components/Features';
@@ -10,11 +11,6 @@ import { Footer } from './components/Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
 
 function Home() {
   return (
@@ -31,15 +27,33 @@ function Home() {
   );
 }
 
+// 🚀 FIX: Uses Supabase's listener for reliable post-login redirect.
 function AuthCallback() {
+  const navigate = useNavigate();
+
   useEffect(() => {
-    // Supabase automatically processes the OAuth callback
-    // Redirect to dashboard after processing
-    const timer = setTimeout(() => {
-      window.location.href = '/dashboard';
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
+    // This listener reliably detects when Supabase has processed the OAuth hash
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (session) {
+          // 1. Clean up the URL hash (removes the token from the browser address bar)
+          window.history.replaceState({}, document.title, window.location.pathname);
+          // 2. Navigate reliably
+          navigate('/dashboard');
+        } else if (event === 'SIGNED_OUT') {
+          navigate('/login');
+        }
+      }
+    );
+    
+    // Ensure the listener is active and process any initial hash
+    supabase.auth.getSession(); 
+
+    // Cleanup the listener when the component unmounts
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [navigate]);
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -48,25 +62,9 @@ function AuthCallback() {
   );
 }
 
+// 🧹 Cleaned: Removed the unused useLocation hook
 function AppRoutes() {
-  const location = useLocation();
-
-  useEffect(() => {
-    // Handle OAuth callback - check for access token in URL hash
-    const handleAuthCallback = async () => {
-      // Supabase will automatically handle the hash, but let's ensure the session is set
-      const { data } = await supabase.auth.getSession();
-      if (data?.session) {
-        // Clean up the URL by removing the hash
-        window.history.replaceState({}, document.title, window.location.pathname);
-      }
-    };
-
-    if (location.hash.includes('access_token')) {
-      handleAuthCallback();
-    }
-  }, [location.hash]);
-
+  
   return (
     <Routes>
       <Route path="/" element={<Home />} />
