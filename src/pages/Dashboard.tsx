@@ -111,6 +111,19 @@ export default function Dashboard() {
               )}
             </div>
 
+            {/* Chatbot CTA Section */}
+            <div className="border-t border-gray-100 pt-8">
+              <button 
+                onClick={() => navigate('/chatbot')}
+                className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-2xl p-8 transition duration-200 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <p className="text-2xl font-bold mb-2">✨ Generate Your Perfect Recipe</p>
+                  <p className="text-orange-50">What's in your kitchen? Let's create something delicious!</p>
+                </div>
+              </button>
+            </div>
+
             {/* Application Section */}
             <div className="border-t border-gray-100 pt-8">
               <h3 className="text-xl font-semibold text-gray-800 mb-4">Your Chef Buddy Tools</h3>
