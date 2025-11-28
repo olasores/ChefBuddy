@@ -1,0 +1,7 @@
+{
+  "/page": "app/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/login/page": "app/login/page.js",
+  "/chatbot/page": "app/chatbot/page.js",
+  "/api/generate-recipes/route": "app/api/generate-recipes/route.js"
+}
