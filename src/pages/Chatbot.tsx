@@ -1,14 +1,52 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
+import { Loader } from 'lucide-react';
 
 export default function Chatbot() {
   const [input, setInput] = useState('');
+  const [recipes, setRecipes] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
   
-  const handleSubmit = () => {
-    // temporary submit handler — replace with API call later
-    console.log('Chatbot submit:', input);
+  const handleSubmit = async () => {
+    if (!input.trim()) {
+      setError('Please enter at least one ingredient');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+    setRecipes('');
+
+    try {
+      const response = await fetch('/api/generate-recipes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ingredients: input }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate recipes');
+      }
+
+      const data = await response.json();
+      setRecipes(data.recipes);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error('Error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && e.ctrlKey) {
+      handleSubmit();
+    }
   };
 
   return (
@@ -41,21 +79,40 @@ export default function Chatbot() {
                   <textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={handleKeyPress}
                     placeholder='e.g. chicken, tomatoes, garlic'
                     className="w-full h-32 resize-none p-3 rounded-md border outline-none focus:ring-2 focus:ring-orange-200"
                   />
                 </div>
 
+                {error && (
+                  <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+                    {error}
+                  </div>
+                )}
+
                 <div className="mt-6 flex justify-center">
                   <button
                     type="button"
                     onClick={handleSubmit}
-                    className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all"
+                    disabled={loading}
+                    className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                   >
-                    Submit
+                    {loading && <Loader className="w-4 h-4 animate-spin" />}
+                    {loading ? 'Generating...' : 'Submit'}
                   </button>
                 </div>
               </div>
+
+              {/* Recipe Results */}
+              {recipes && (
+                <div className="mt-8 bg-white rounded-2xl shadow-lg p-6 max-w-2xl mx-auto">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Your Recipe Suggestions:</h2>
+                  <div className="prose prose-sm max-w-none text-gray-700 whitespace-pre-wrap">
+                    {recipes}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
