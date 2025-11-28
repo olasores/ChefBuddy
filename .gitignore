@@ -22,6 +22,8 @@ dist-ssr
 *.sw?
 .env
 
+root.env
+
 
 .bolt
 .history 
