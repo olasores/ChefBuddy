@@ -5,17 +5,6 @@ const client = new Anthropic({
 });
 
 export default async function handler(req, res) {
-  // Enable CORS
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-  
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -30,7 +19,7 @@ export default async function handler(req, res) {
 
     // Call Claude API to generate recipes
     const message = await client.messages.create({
-      model: 'claude-3-sonnet-20240229',
+      model: 'claude-3-5-sonnet-20241022',
       max_tokens: 1024,
       messages: [
         {

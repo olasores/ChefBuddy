@@ -21,10 +21,7 @@ export default function Chatbot() {
     setRecipes('');
 
     try {
-      // Use relative path for API calls (works in both dev and production)
-      const apiUrl = '/api/generate-recipes';
-      
-      const response = await fetch(apiUrl, {
+      const response = await fetch('/api/generate-recipes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,8 +30,7 @@ export default function Chatbot() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to generate recipes');
+        throw new Error('Failed to generate recipes');
       }
 
       const data = await response.json();
