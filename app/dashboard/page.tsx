@@ -11,9 +11,15 @@ interface ProfileMeta {
   other_info?: string;
 }
 
+interface DashboardUser {
+  id: string;
+  email?: string | null;
+  user_metadata?: ProfileMeta;
+}
+
 export default function DashboardPage() {
   const router = useRouter();
-  const [user, setUser] = React.useState<{ email?: string | null; user_metadata?: ProfileMeta } | null>(null);
+  const [user, setUser] = React.useState<DashboardUser | null>(null);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -22,6 +28,7 @@ export default function DashboardPage() {
         const { data } = await supabase.auth.getUser();
         if (data?.user) {
           setUser({
+            id: data.user.id,
             email: data.user.email,
             user_metadata: data.user.user_metadata as ProfileMeta,
           });
@@ -115,21 +122,32 @@ export default function DashboardPage() {
             <div className="border-t border-gray-100 pt-8">
               <h3 className="text-xl font-semibold text-gray-800 mb-4">Your Chef Buddy Tools</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <button
+
+                {/* commenting this out for now */}
+                
+                {/* <button
                   type="button"
                   onClick={() => console.log('Navigate to Recipes')}
                   className="p-4 bg-orange-50 hover:bg-orange-100 rounded-xl transition duration-150 text-left"
                 >
                   <p className="font-semibold text-orange-700">Manage Recipes</p>
                   <p className="text-sm text-gray-500">Create, edit, and discover new dishes.</p>
-                </button>
-                <button
+                </button> */}
+                {/* <button
                   type="button"
                   onClick={() => console.log('Navigate to Meal Planner')}
                   className="p-4 bg-orange-50 hover:bg-orange-100 rounded-xl transition duration-150 text-left"
                 >
                   <p className="font-semibold text-orange-700">Meal Planner</p>
                   <p className="text-sm text-gray-500">Plan your week of meals efficiently.</p>
+                </button> */}
+                <button
+                  type="button"
+                  onClick={() => router.push('/saved-recipes')}
+                  className="p-4 bg-orange-50 hover:bg-orange-100 rounded-xl transition duration-150 text-left"
+                >
+                  <p className="font-semibold text-orange-700">Saved Recipes</p>
+                  <p className="text-sm text-gray-500">See every dish you bookmarked.</p>
                 </button>
               </div>
             </div>

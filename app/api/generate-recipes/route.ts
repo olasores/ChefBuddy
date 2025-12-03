@@ -3,6 +3,85 @@ import Anthropic from '@anthropic-ai/sdk';
 
 const DEFAULT_MODEL = 'claude-3-haiku-20240307';
 
+type GeneratedRecipe = {
+  title: string;
+  description: string;
+  ingredients: string[];
+  steps: string[];
+};
+
+type AnthropicTextBlock = {
+  type: 'text';
+  text: string;
+};
+
+const extractTextContent = (content: unknown): string => {
+  if (!Array.isArray(content)) {
+    return '';
+  }
+
+  return content
+    .filter((block): block is AnthropicTextBlock =>
+      Boolean(block && typeof block === 'object' && 'type' in block && block.type === 'text' && typeof block.text === 'string')
+    )
+    .map((block) => block.text)
+    .join('\n')
+    .trim();
+};
+
+const toStringArray = (value: unknown): string[] => {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .map((entry) => (typeof entry === 'string' ? entry.trim() : ''))
+    .filter((entry) => entry.length > 0);
+};
+
+const normalizeRecipes = (rawText: string | undefined): GeneratedRecipe[] => {
+  if (!rawText) {
+    return [];
+  }
+
+  const sanitized = rawText
+    .replace(/^```json/i, '')
+    .replace(/^```/, '')
+    .replace(/```$/, '')
+    .trim();
+
+  const ensureRecipeShape = (recipe: Partial<GeneratedRecipe>): GeneratedRecipe => ({
+    title: recipe.title?.trim() || 'Chef Buddy Recipe',
+    description: recipe.description?.trim() || 'Enjoy this custom recipe idea from Chef Buddy.',
+    ingredients: toStringArray(recipe.ingredients),
+    steps: toStringArray(recipe.steps),
+  });
+
+  try {
+    const parsed = JSON.parse(sanitized);
+    if (Array.isArray(parsed)) {
+      return parsed.map(ensureRecipeShape);
+    }
+    if (parsed && typeof parsed === 'object') {
+      const maybeRecipes = (parsed as { recipes?: unknown }).recipes;
+      if (Array.isArray(maybeRecipes)) {
+        return maybeRecipes.map(ensureRecipeShape);
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to parse structured recipes, falling back to plain text', error);
+  }
+
+  return [
+    {
+      title: 'Chef Buddy Ideas',
+      description: sanitized,
+      ingredients: [],
+      steps: [],
+    },
+  ];
+};
+
 export async function POST(request: Request) {
   try {
     const { ingredients } = await request.json();
@@ -24,16 +103,17 @@ export async function POST(request: Request) {
 
     const message = await client.messages.create({
       model,
-      max_tokens: 1024,
+      max_tokens: 2048,
       messages: [
         {
           role: 'user',
-          content: `You are a helpful chef assistant. Given the following ingredients, suggest 2-3 creative recipes that can be made with them. For each recipe, provide the name, a brief description, and main steps.\n\nIngredients: ${ingredients}\n\nPlease format your response clearly with recipe names as headings and steps as a numbered list.`,
+          content: `You are a helpful chef assistant. Given the following ingredients, respond ONLY with valid JSON in the shape {"recipes":[{"title":"string","description":"string","ingredients":["string"],"steps":["string"]}]}. Avoid markdown code fences. Include at least 2 distinct, creative recipe ideas and keep descriptions friendly but short.\n\nIngredients: ${ingredients}`,
         },
       ],
     });
 
-    const recipes = message.content?.[0]?.type === 'text' ? message.content[0].text : '';
+    const rawText = extractTextContent(message.content);
+    const recipes = normalizeRecipes(rawText);
     return NextResponse.json({ recipes });
   } catch (error) {
     console.error('Error calling Claude API:', error);
