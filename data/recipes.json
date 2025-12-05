@@ -1,0 +1,102 @@
+[
+  {
+    "id": "hearty-lentil-soup",
+    "title": "Hearty Lentil Soup",
+    "cuisine": "Mediterranean",
+    "mealType": ["Dinner", "Lunch"],
+    "tags": ["high-protein", "vegetarian", "budget"],
+    "ingredients": [
+      "1 cup dried green lentils",
+      "1 yellow onion, diced",
+      "2 carrots, diced",
+      "2 celery stalks, sliced",
+      "3 cloves garlic, minced",
+      "1 tbsp tomato paste",
+      "1 tsp smoked paprika",
+      "6 cups vegetable broth",
+      "2 tbsp olive oil",
+      "1 bay leaf",
+      "Salt and pepper to taste"
+    ],
+    "instructions": [
+      "Heat olive oil in a Dutch oven over medium heat and sauté onion, carrots, and celery for 5 minutes.",
+      "Add garlic, tomato paste, and smoked paprika; cook until fragrant (1 minute).",
+      "Stir in lentils, bay leaf, and broth. Bring to a boil, then simmer partially covered for 30 minutes.",
+      "Season with salt and pepper. Serve with lemon wedges and crusty bread."
+    ],
+    "notes": "Lentils thicken as they cool. Add more broth when reheating for a looser texture.",
+    "nutrition": {
+      "calories": 310,
+      "protein_g": 18,
+      "carbs_g": 42,
+      "fat_g": 8
+    }
+  },
+  {
+    "id": "citrus-herb-salmon",
+    "title": "Citrus Herb Sheet-Pan Salmon",
+    "cuisine": "Modern",
+    "mealType": ["Dinner"],
+    "tags": ["omega-3", "30-minutes", "gluten-free"],
+    "ingredients": [
+      "4 salmon fillets (5 oz each)",
+      "1 lb baby potatoes, halved",
+      "8 oz asparagus, trimmed",
+      "2 tbsp olive oil",
+      "Zest and juice of 1 lemon",
+      "1 orange, thinly sliced",
+      "2 tsp Dijon mustard",
+      "1 tbsp honey",
+      "1 tbsp chopped dill",
+      "1 tbsp chopped parsley",
+      "Salt and pepper"
+    ],
+    "instructions": [
+      "Preheat oven to 425°F (220°C). Toss potatoes with 1 tbsp oil, salt, and pepper; roast 15 min.",
+      "Whisk remaining oil with lemon zest/juice, Dijon, honey, dill, and parsley.",
+      "Add asparagus and salmon to pan, brush with citrus herb glaze, top salmon with orange slices.",
+      "Roast 10–12 min more until salmon flakes easily and potatoes are tender."
+    ],
+    "notes": "Swap asparagus for green beans in winter. Leftover glaze doubles as salad dressing.",
+    "nutrition": {
+      "calories": 420,
+      "protein_g": 34,
+      "carbs_g": 32,
+      "fat_g": 18
+    }
+  },
+  {
+    "id": "mango-chia-overnight-oats",
+    "title": "Mango Chia Overnight Oats",
+    "cuisine": "Fusion",
+    "mealType": ["Breakfast", "Snack"],
+    "tags": ["make-ahead", "fiber-rich", "dairy-optional"],
+    "ingredients": [
+      "1 cup rolled oats",
+      "1 cup unsweetened almond milk",
+      "1/2 cup Greek yogurt (or coconut yogurt)",
+      "1 tbsp chia seeds",
+      "1 tbsp maple syrup",
+      "1 tsp vanilla extract",
+      "1 ripe mango, diced",
+      "2 tbsp toasted coconut flakes",
+      "Lime zest for garnish"
+    ],
+    "instructions": [
+      "Combine oats, almond milk, yogurt, chia seeds, maple syrup, and vanilla in a jar; stir well.",
+      "Fold in half the diced mango. Cover and refrigerate at least 4 hours or overnight.",
+      "Top with remaining mango, toasted coconut, and lime zest before serving."
+    ],
+    "notes": "For extra protein add a scoop of vanilla protein powder and an extra splash of milk.",
+    "nutrition": {
+      "calories": 360,
+      "protein_g": 14,
+      "carbs_g": 56,
+      "fat_g": 10
+    }
+  }
+]
+
+
+
+// please add three more recipes in the same format.
