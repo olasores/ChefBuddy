@@ -94,9 +94,108 @@
       "carbs_g": 56,
       "fat_g": 10
     }
+  },
+  {
+    "id": "spicy-chickpea-stew",
+    "title": "Spicy Chickpea Stew",
+    "cuisine": "Mediterranean",
+    "mealType": ["Dinner", "Lunch"],
+    "tags": ["high-protein", "vegetarian", "one-pot"],
+    "ingredients": [
+      "1 can (15 oz) chickpeas, drained and rinsed",
+      "1 yellow onion, diced",
+      "2 cloves garlic, minced",
+      "1 red bell pepper, diced",
+      "1 can (14 oz) diced tomatoes",
+      "2 cups vegetable broth",
+      "1 tsp cumin",
+      "1 tsp smoked paprika",
+      "1/2 tsp cayenne pepper (adjust to taste)",
+      "2 tbsp olive oil",
+      "Salt and pepper to taste",
+      "Fresh parsley for garnish"
+    ],
+    "instructions": [
+      "Heat olive oil in a large pot over medium heat. Add onions and bell pepper; sauté for 5 minutes.",
+      "Stir in garlic, cumin, smoked paprika, and cayenne; cook until fragrant (1 minute).",
+      "Add chickpeas, diced tomatoes, and vegetable broth. Bring to a boil, then reduce heat and simmer for 20 minutes.",
+      "Season with salt and pepper. Garnish with fresh parsley before serving."
+    ],
+    "notes": "Can be served with rice or crusty bread.",
+    "nutrition": {
+      "calories": 320,
+      "protein_g": 15,
+      "carbs_g": 45,
+      "fat_g": 8
+    }
+  },
+  {
+  "id": "quinoa-tabbouleh-salad",
+  "title": "Quinoa Tabbouleh Salad",
+  "cuisine": "Mediterranean",
+  "mealType": ["Dinner", "Lunch"],
+  "tags": ["vegan", "gluten-free", "healthy"],
+  "ingredients": [
+    "1 cup quinoa, rinsed and drained",
+    "2 cups water",
+    "1 cup cherry tomatoes, halved",
+    "1 cucumber, diced",
+    "1/4 cup red onion, diced",
+    "1/2 cup fresh parsley, chopped",
+    "1/4 cup fresh mint, chopped",
+    "1/4 cup olive oil",
+    "Juice of 2 lemons",
+    "Salt and pepper to taste"
+  ],
+  "instructions": [
+    "In a pot, bring quinoa and water to a boil. Reduce heat, cover, and simmer for 15 minutes. Let it cool.",
+    "In a large bowl, combine the cooled quinoa, tomatoes, cucumber, red onion, parsley, and mint.",
+    "In a small bowl, whisk together olive oil, lemon juice, salt, and pepper.",
+    "Pour the dressing over the salad and toss to combine."
+  ],
+  "notes": "Chill for 30 minutes for better flavor.",
+  "nutrition": {
+    "calories": 280,
+    "protein_g": 8,
+    "carbs_g": 42,
+    "fat_g": 10
+    }
+  },
+  {
+  "id": "creamy-mushroom-risotto",
+  "title": "Creamy Mushroom Risotto",
+  "cuisine": "Mediterranean",
+  "mealType": ["Dinner"],
+  "tags": ["vegetarian", "comfort food", "creamy"],
+  "ingredients": [
+    "1 cup Arborio rice",
+    "4 cups vegetable broth",
+    "1 small onion, diced",
+    "2 cups mushrooms, sliced",
+    "2 cloves garlic, minced",
+    "1/2 cup dry white wine (optional)",
+    "1/2 cup grated Parmesan cheese",
+    "2 tbsp butter",
+    "2 tbsp olive oil",
+    "Salt and pepper to taste",
+    "Fresh parsley for garnish"
+  ],
+  "instructions": [
+    "In a saucepan, heat the vegetable broth; keep warm over low heat.",
+    "In a large skillet, heat olive oil and 1 tbsp butter over medium heat. Sauté onion and mushrooms until soft.",
+    "Stir in garlic, then add Arborio rice, cooking for 1-2 minutes.",
+    "Pour in white wine (if using); stir until absorbed. Gradually add broth, one ladle at a time, stirring constantly until absorbed before adding more.",
+    "Once creamy, stir in remaining butter and Parmesan cheese. Season with salt and pepper."
+  ],
+  "notes": "For added flavor, sauté mushrooms separately and add them before serving.",
+  "nutrition": {
+    "calories": 410,
+    "protein_g": 12,
+    "carbs_g": 62,
+    "fat_g": 14
+    }
   }
 ]
-
 
 
 // please add three more recipes in the same format.
