@@ -66,6 +66,103 @@
     }
   },
   {
+    "id": "spicy-paneer-tikka-wrap",
+    "title": "Spicy Paneer Tikka Wrap",
+    "cuisine": "Indian Fusion",
+    "mealType": ["Lunch", "Dinner"],
+    "tags": ["high-protein", "quick", "vegetarian"],
+    "ingredients": [
+      "200g paneer, cubed",
+      "1/2 cup thick yogurt",
+      "1 tbsp tandoori masala",
+      "1 tsp red chili powder",
+      "1 tsp ginger-garlic paste",
+      "1 tbsp lemon juice",
+      "1 tbsp oil",
+      "4 whole-wheat tortillas",
+      "1/2 cup shredded cabbage",
+      "1/2 cup sliced onions",
+      "2 tbsp mint chutney",
+      "Salt to taste"
+    ],
+    "instructions": [
+      "Mix yogurt, chili powder, tandoori masala, ginger-garlic paste, lemon juice, and salt. Coat paneer and marinate 15–20 minutes.",
+      "Heat oil in a skillet and sauté marinated paneer until lightly charred.",
+      "Warm tortillas and spread mint chutney over each.",
+      "Add cabbage, onions, and paneer. Roll tightly into wraps and serve warm."
+    ],
+    "notes": "Add a drizzle of yogurt or mayo for extra creaminess.",
+    "nutrition": {
+      "calories": 420,
+      "protein_g": 22,
+      "carbs_g": 45,
+      "fat_g": 16
+    }
+  },
+  {
+    "id": "creamy-garlic-mushroom-pasta",
+    "title": "Creamy Garlic Mushroom Pasta",
+    "cuisine": "Italian",
+    "mealType": ["Dinner"],
+    "tags": ["comfort-food", "vegetarian", "30-minutes"],
+    "ingredients": [
+      "200g fettuccine (or pasta of choice)",
+      "2 tbsp butter",
+      "1 tbsp olive oil",
+      "3 cups sliced mushrooms",
+      "4 cloves garlic, minced",
+      "1 cup heavy cream",
+      "1/2 cup grated Parmesan",
+      "1 tsp black pepper",
+      "1/2 tsp chili flakes",
+      "Salt to taste",
+      "Fresh parsley for garnish"
+    ],
+    "instructions": [
+      "Cook pasta according to package instructions; reserve 1/2 cup pasta water.",
+      "Heat butter and oil in a pan; sauté mushrooms until browned.",
+      "Add garlic and sauté 1 minute. Pour in cream and simmer until slightly thickened.",
+      "Stir in Parmesan, pepper, chili flakes, and salt.",
+      "Add cooked pasta and a splash of pasta water if needed. Toss until creamy.",
+      "Garnish with parsley and serve hot."
+    ],
+    "notes": "Swap heavy cream for evaporated milk to lighten the dish.",
+    "nutrition": {
+      "calories": 530,
+      "protein_g": 18,
+      "carbs_g": 62,
+      "fat_g": 24
+    }
+  },
+  {
+    "id": "strawberry-basil-lemonade",
+    "title": "Strawberry Basil Lemonade",
+    "cuisine": "American",
+    "mealType": ["Drink", "Snack"],
+    "tags": ["refreshing", "non-alcoholic", "summer"],
+    "ingredients": [
+      "1 cup fresh strawberries, hulled",
+      "1/4 cup basil leaves",
+      "1/2 cup fresh lemon juice",
+      "3 tbsp sugar or honey",
+      "3 cups cold water",
+      "Ice cubes",
+      "Lemon slices for garnish"
+    ],
+    "instructions": [
+      "Blend strawberries, basil, lemon juice, and sugar until smooth.",
+      "Strain mixture into a jug and add cold water. Stir well.",
+      "Serve over ice and garnish with lemon slices and extra basil."
+    ],
+    "notes": "For a sparkling version, replace 1 cup water with soda water.",
+    "nutrition": {
+      "calories": 90,
+      "protein_g": 1,
+      "carbs_g": 22,
+      "fat_g": 0
+    }
+  },
+  {
     "id": "mango-chia-overnight-oats",
     "title": "Mango Chia Overnight Oats",
     "cuisine": "Fusion",
