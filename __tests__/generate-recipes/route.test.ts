@@ -2,7 +2,6 @@
 
 /** @jest-environment node */
 
-// Emily add to route.test.ts
 import Anthropic from '@anthropic-ai/sdk';
 import { POST } from '@/app/api/generate-recipes/route';
 import { formatRecipesAsContext, retrieveRecipesForQuery } from '@/lib/rag/recipes';
