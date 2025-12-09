@@ -24,5 +24,9 @@ ANTHROPIC_MODEL=claude-3-haiku-20240307 # optional override
 - `npm run start` – run the production build locally
 - `npm run lint` – lint the project with the Next + ESLint config
 - `npm run typecheck` – run `tsc --noEmit`
+- `npm run test` – to run all tests
 
 Deploy to Vercel (or any platform that supports Next.js) after the build succeeds.
+
+
+
