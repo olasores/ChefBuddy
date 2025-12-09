@@ -1,0 +1,295 @@
+[
+  {
+    "id": "hearty-lentil-soup",
+    "title": "Hearty Lentil Soup",
+    "cuisine": "Mediterranean",
+    "mealType": ["Dinner", "Lunch"],
+    "tags": ["high-protein", "vegetarian", "budget"],
+    "ingredients": [
+      "1 cup dried green lentils",
+      "1 yellow onion, diced",
+      "2 carrots, diced",
+      "2 celery stalks, sliced",
+      "3 cloves garlic, minced",
+      "1 tbsp tomato paste",
+      "1 tsp smoked paprika",
+      "6 cups vegetable broth",
+      "2 tbsp olive oil",
+      "1 bay leaf",
+      "Salt and pepper to taste"
+    ],
+    "instructions": [
+      "Heat olive oil in a Dutch oven over medium heat and sauté onion, carrots, and celery for 5 minutes.",
+      "Add garlic, tomato paste, and smoked paprika; cook until fragrant (1 minute).",
+      "Stir in lentils, bay leaf, and broth. Bring to a boil, then simmer partially covered for 30 minutes.",
+      "Season with salt and pepper. Serve with lemon wedges and crusty bread."
+    ],
+    "notes": "Lentils thicken as they cool. Add more broth when reheating for a looser texture.",
+    "nutrition": {
+      "calories": 310,
+      "protein_g": 18,
+      "carbs_g": 42,
+      "fat_g": 8
+    }
+  },
+  {
+    "id": "citrus-herb-salmon",
+    "title": "Citrus Herb Sheet-Pan Salmon",
+    "cuisine": "Modern",
+    "mealType": ["Dinner"],
+    "tags": ["omega-3", "30-minutes", "gluten-free"],
+    "ingredients": [
+      "4 salmon fillets (5 oz each)",
+      "1 lb baby potatoes, halved",
+      "8 oz asparagus, trimmed",
+      "2 tbsp olive oil",
+      "Zest and juice of 1 lemon",
+      "1 orange, thinly sliced",
+      "2 tsp Dijon mustard",
+      "1 tbsp honey",
+      "1 tbsp chopped dill",
+      "1 tbsp chopped parsley",
+      "Salt and pepper"
+    ],
+    "instructions": [
+      "Preheat oven to 425°F (220°C). Toss potatoes with 1 tbsp oil, salt, and pepper; roast 15 min.",
+      "Whisk remaining oil with lemon zest/juice, Dijon, honey, dill, and parsley.",
+      "Add asparagus and salmon to pan, brush with citrus herb glaze, top salmon with orange slices.",
+      "Roast 10–12 min more until salmon flakes easily and potatoes are tender."
+    ],
+    "notes": "Swap asparagus for green beans in winter. Leftover glaze doubles as salad dressing.",
+    "nutrition": {
+      "calories": 420,
+      "protein_g": 34,
+      "carbs_g": 32,
+      "fat_g": 18
+    }
+  },
+  {
+    "id": "spicy-paneer-tikka-wrap",
+    "title": "Spicy Paneer Tikka Wrap",
+    "cuisine": "Indian Fusion",
+    "mealType": ["Lunch", "Dinner"],
+    "tags": ["high-protein", "quick", "vegetarian"],
+    "ingredients": [
+      "200g paneer, cubed",
+      "1/2 cup thick yogurt",
+      "1 tbsp tandoori masala",
+      "1 tsp red chili powder",
+      "1 tsp ginger-garlic paste",
+      "1 tbsp lemon juice",
+      "1 tbsp oil",
+      "4 whole-wheat tortillas",
+      "1/2 cup shredded cabbage",
+      "1/2 cup sliced onions",
+      "2 tbsp mint chutney",
+      "Salt to taste"
+    ],
+    "instructions": [
+      "Mix yogurt, chili powder, tandoori masala, ginger-garlic paste, lemon juice, and salt. Coat paneer and marinate 15–20 minutes.",
+      "Heat oil in a skillet and sauté marinated paneer until lightly charred.",
+      "Warm tortillas and spread mint chutney over each.",
+      "Add cabbage, onions, and paneer. Roll tightly into wraps and serve warm."
+    ],
+    "notes": "Add a drizzle of yogurt or mayo for extra creaminess.",
+    "nutrition": {
+      "calories": 420,
+      "protein_g": 22,
+      "carbs_g": 45,
+      "fat_g": 16
+    }
+  },
+  {
+    "id": "creamy-garlic-mushroom-pasta",
+    "title": "Creamy Garlic Mushroom Pasta",
+    "cuisine": "Italian",
+    "mealType": ["Dinner"],
+    "tags": ["comfort-food", "vegetarian", "30-minutes"],
+    "ingredients": [
+      "200g fettuccine (or pasta of choice)",
+      "2 tbsp butter",
+      "1 tbsp olive oil",
+      "3 cups sliced mushrooms",
+      "4 cloves garlic, minced",
+      "1 cup heavy cream",
+      "1/2 cup grated Parmesan",
+      "1 tsp black pepper",
+      "1/2 tsp chili flakes",
+      "Salt to taste",
+      "Fresh parsley for garnish"
+    ],
+    "instructions": [
+      "Cook pasta according to package instructions; reserve 1/2 cup pasta water.",
+      "Heat butter and oil in a pan; sauté mushrooms until browned.",
+      "Add garlic and sauté 1 minute. Pour in cream and simmer until slightly thickened.",
+      "Stir in Parmesan, pepper, chili flakes, and salt.",
+      "Add cooked pasta and a splash of pasta water if needed. Toss until creamy.",
+      "Garnish with parsley and serve hot."
+    ],
+    "notes": "Swap heavy cream for evaporated milk to lighten the dish.",
+    "nutrition": {
+      "calories": 530,
+      "protein_g": 18,
+      "carbs_g": 62,
+      "fat_g": 24
+    }
+  },
+  {
+    "id": "strawberry-basil-lemonade",
+    "title": "Strawberry Basil Lemonade",
+    "cuisine": "American",
+    "mealType": ["Drink", "Snack"],
+    "tags": ["refreshing", "non-alcoholic", "summer"],
+    "ingredients": [
+      "1 cup fresh strawberries, hulled",
+      "1/4 cup basil leaves",
+      "1/2 cup fresh lemon juice",
+      "3 tbsp sugar or honey",
+      "3 cups cold water",
+      "Ice cubes",
+      "Lemon slices for garnish"
+    ],
+    "instructions": [
+      "Blend strawberries, basil, lemon juice, and sugar until smooth.",
+      "Strain mixture into a jug and add cold water. Stir well.",
+      "Serve over ice and garnish with lemon slices and extra basil."
+    ],
+    "notes": "For a sparkling version, replace 1 cup water with soda water.",
+    "nutrition": {
+      "calories": 90,
+      "protein_g": 1,
+      "carbs_g": 22,
+      "fat_g": 0
+    }
+  },
+  {
+    "id": "mango-chia-overnight-oats",
+    "title": "Mango Chia Overnight Oats",
+    "cuisine": "Fusion",
+    "mealType": ["Breakfast", "Snack"],
+    "tags": ["make-ahead", "fiber-rich", "dairy-optional"],
+    "ingredients": [
+      "1 cup rolled oats",
+      "1 cup unsweetened almond milk",
+      "1/2 cup Greek yogurt (or coconut yogurt)",
+      "1 tbsp chia seeds",
+      "1 tbsp maple syrup",
+      "1 tsp vanilla extract",
+      "1 ripe mango, diced",
+      "2 tbsp toasted coconut flakes",
+      "Lime zest for garnish"
+    ],
+    "instructions": [
+      "Combine oats, almond milk, yogurt, chia seeds, maple syrup, and vanilla in a jar; stir well.",
+      "Fold in half the diced mango. Cover and refrigerate at least 4 hours or overnight.",
+      "Top with remaining mango, toasted coconut, and lime zest before serving."
+    ],
+    "notes": "For extra protein add a scoop of vanilla protein powder and an extra splash of milk.",
+    "nutrition": {
+      "calories": 360,
+      "protein_g": 14,
+      "carbs_g": 56,
+      "fat_g": 10
+    }
+  },
+  {
+    "id": "spicy-chickpea-stew",
+    "title": "Spicy Chickpea Stew",
+    "cuisine": "Mediterranean",
+    "mealType": ["Dinner", "Lunch"],
+    "tags": ["high-protein", "vegetarian", "one-pot"],
+    "ingredients": [
+      "1 can (15 oz) chickpeas, drained and rinsed",
+      "1 yellow onion, diced",
+      "2 cloves garlic, minced",
+      "1 red bell pepper, diced",
+      "1 can (14 oz) diced tomatoes",
+      "2 cups vegetable broth",
+      "1 tsp cumin",
+      "1 tsp smoked paprika",
+      "1/2 tsp cayenne pepper (adjust to taste)",
+      "2 tbsp olive oil",
+      "Salt and pepper to taste",
+      "Fresh parsley for garnish"
+    ],
+    "instructions": [
+      "Heat olive oil in a large pot over medium heat. Add onions and bell pepper; sauté for 5 minutes.",
+      "Stir in garlic, cumin, smoked paprika, and cayenne; cook until fragrant (1 minute).",
+      "Add chickpeas, diced tomatoes, and vegetable broth. Bring to a boil, then reduce heat and simmer for 20 minutes.",
+      "Season with salt and pepper. Garnish with fresh parsley before serving."
+    ],
+    "notes": "Can be served with rice or crusty bread.",
+    "nutrition": {
+      "calories": 320,
+      "protein_g": 15,
+      "carbs_g": 45,
+      "fat_g": 8
+    }
+  },
+  {
+  "id": "quinoa-tabbouleh-salad",
+  "title": "Quinoa Tabbouleh Salad",
+  "cuisine": "Mediterranean",
+  "mealType": ["Dinner", "Lunch"],
+  "tags": ["vegan", "gluten-free", "healthy"],
+  "ingredients": [
+    "1 cup quinoa, rinsed and drained",
+    "2 cups water",
+    "1 cup cherry tomatoes, halved",
+    "1 cucumber, diced",
+    "1/4 cup red onion, diced",
+    "1/2 cup fresh parsley, chopped",
+    "1/4 cup fresh mint, chopped",
+    "1/4 cup olive oil",
+    "Juice of 2 lemons",
+    "Salt and pepper to taste"
+  ],
+  "instructions": [
+    "In a pot, bring quinoa and water to a boil. Reduce heat, cover, and simmer for 15 minutes. Let it cool.",
+    "In a large bowl, combine the cooled quinoa, tomatoes, cucumber, red onion, parsley, and mint.",
+    "In a small bowl, whisk together olive oil, lemon juice, salt, and pepper.",
+    "Pour the dressing over the salad and toss to combine."
+  ],
+  "notes": "Chill for 30 minutes for better flavor.",
+  "nutrition": {
+    "calories": 280,
+    "protein_g": 8,
+    "carbs_g": 42,
+    "fat_g": 10
+    }
+  },
+  {
+  "id": "creamy-mushroom-risotto",
+  "title": "Creamy Mushroom Risotto",
+  "cuisine": "Mediterranean",
+  "mealType": ["Dinner"],
+  "tags": ["vegetarian", "comfort food", "creamy"],
+  "ingredients": [
+    "1 cup Arborio rice",
+    "4 cups vegetable broth",
+    "1 small onion, diced",
+    "2 cups mushrooms, sliced",
+    "2 cloves garlic, minced",
+    "1/2 cup dry white wine (optional)",
+    "1/2 cup grated Parmesan cheese",
+    "2 tbsp butter",
+    "2 tbsp olive oil",
+    "Salt and pepper to taste",
+    "Fresh parsley for garnish"
+  ],
+  "instructions": [
+    "In a saucepan, heat the vegetable broth; keep warm over low heat.",
+    "In a large skillet, heat olive oil and 1 tbsp butter over medium heat. Sauté onion and mushrooms until soft.",
+    "Stir in garlic, then add Arborio rice, cooking for 1-2 minutes.",
+    "Pour in white wine (if using); stir until absorbed. Gradually add broth, one ladle at a time, stirring constantly until absorbed before adding more.",
+    "Once creamy, stir in remaining butter and Parmesan cheese. Season with salt and pepper."
+  ],
+  "notes": "For added flavor, sauté mushrooms separately and add them before serving.",
+  "nutrition": {
+    "calories": 410,
+    "protein_g": 12,
+    "carbs_g": 62,
+    "fat_g": 14
+    }
+  }
+]

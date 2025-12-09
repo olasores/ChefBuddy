@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
+import { formatRecipesAsContext, retrieveRecipesForQuery } from '@/lib/rag/recipes';
 
 const DEFAULT_MODEL = 'claude-3-haiku-20240307';
 
@@ -8,6 +9,7 @@ type GeneratedRecipe = {
   description: string;
   ingredients: string[];
   steps: string[];
+  inspiredBy?: string;
 };
 
 type AnthropicTextBlock = {
@@ -55,6 +57,7 @@ const normalizeRecipes = (rawText: string | undefined): GeneratedRecipe[] => {
     description: recipe.description?.trim() || 'Enjoy this custom recipe idea from Chef Buddy.',
     ingredients: toStringArray(recipe.ingredients),
     steps: toStringArray(recipe.steps),
+    inspiredBy: recipe.inspiredBy?.trim(),
   });
 
   try {
@@ -90,6 +93,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ingredients are required' }, { status: 400 });
     }
 
+    const relevantRecipes = await retrieveRecipesForQuery(ingredients, 3);
+    const contextBlock = formatRecipesAsContext(relevantRecipes);
+
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
       console.error('ANTHROPIC_API_KEY missing in environment');
@@ -107,14 +113,17 @@ export async function POST(request: Request) {
       messages: [
         {
           role: 'user',
-          content: `You are a helpful chef assistant. Given the following ingredients, respond ONLY with valid JSON in the shape {"recipes":[{"title":"string","description":"string","ingredients":["string"],"steps":["string"]}]}. Avoid markdown code fences. Include at least 2 distinct, creative recipe ideas and keep descriptions friendly but short.\n\nIngredients: ${ingredients}`,
+          content: `You are a helpful chef assistant. Ground every recommendation in the provided reference recipes when possible, remixing them only if it improves the dish. If the references are not relevant, you may create new ideas but prefer citing the closest reference. Respond ONLY with valid JSON in the shape {"recipes":[{"title":"string","description":"string","ingredients":["string"],"steps":["string"],"inspiredBy":"optional reference id"}]}. Avoid markdown code fences. Include at least 2 distinct, creative recipe ideas and keep descriptions friendly but short.\n\nReference recipes:\n${contextBlock}\n\nAvailable ingredients or request: ${ingredients}`,
         },
       ],
     });
 
     const rawText = extractTextContent(message.content);
     const recipes = normalizeRecipes(rawText);
-    return NextResponse.json({ recipes });
+    return NextResponse.json({
+      recipes,
+      referenceRecipes: relevantRecipes,
+    });
   } catch (error) {
     console.error('Error calling Claude API:', error);
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';

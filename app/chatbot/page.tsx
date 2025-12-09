@@ -2,9 +2,21 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import { BookmarkCheck, BookmarkPlus, Loader } from 'lucide-react';
+import { BookmarkCheck, BookmarkPlus, Info, Loader } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { supabase } from '@/lib/supabaseClient';
+
+type ReferenceRecipe = {
+  id: string;
+  title: string;
+  cuisine?: string;
+  mealType?: string[];
+  tags?: string[];
+  ingredients: string[];
+  instructions: string[];
+  notes?: string;
+  ragScore?: number;
+};
 
 type GeneratedRecipe = {
   id: string;
@@ -12,6 +24,7 @@ type GeneratedRecipe = {
   description: string;
   ingredients: string[];
   steps: string[];
+  inspiredBy?: string;
 };
 
 const normalizeString = (value: unknown, fallback: string) =>
@@ -39,6 +52,7 @@ const buildRecipes = (payload: unknown): GeneratedRecipe[] => {
       description: normalizeString(base.description, 'Enjoy this custom recipe!'),
       ingredients: normalizeList(base.ingredients),
       steps: normalizeList(base.steps),
+      inspiredBy: base.inspiredBy ? base.inspiredBy.trim() : undefined,
     };
   });
 };
@@ -51,9 +65,12 @@ export default function ChatbotPage() {
   const [error, setError] = React.useState('');
   const [saveFeedback, setSaveFeedback] = React.useState('');
   const [savingId, setSavingId] = React.useState<string | null>(null);
+  const [savingReferenceId, setSavingReferenceId] = React.useState<string | null>(null);
   const [savedRecipeIds, setSavedRecipeIds] = React.useState<string[]>([]);
+  const [savedReferenceIds, setSavedReferenceIds] = React.useState<string[]>([]);
   const [currentUserId, setCurrentUserId] = React.useState<string | null>(null);
   const [lastGeneratedIngredients, setLastGeneratedIngredients] = React.useState('');
+  const [referenceRecipes, setReferenceRecipes] = React.useState<ReferenceRecipe[]>([]);
 
   React.useEffect(() => {
     const fetchUser = async () => {
@@ -73,6 +90,7 @@ export default function ChatbotPage() {
     setLoading(true);
     setError('');
     setRecipes([]);
+    setReferenceRecipes([]);
     setSaveFeedback('');
 
     try {
@@ -98,6 +116,8 @@ export default function ChatbotPage() {
 
       const data = await response.json();
       const parsedRecipes = buildRecipes(data.recipes);
+      const references = Array.isArray(data.referenceRecipes) ? (data.referenceRecipes as ReferenceRecipe[]) : [];
+      setReferenceRecipes(references);
 
       if (!parsedRecipes.length) {
         throw new Error('No recipes returned. Please try again.');
@@ -105,6 +125,7 @@ export default function ChatbotPage() {
 
       setRecipes(parsedRecipes);
       setSavedRecipeIds([]);
+      setSavedReferenceIds([]);
       setLastGeneratedIngredients(input.trim());
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -152,6 +173,40 @@ export default function ChatbotPage() {
       setError(message);
     } finally {
       setSavingId(null);
+    }
+  };
+
+  const handleSaveReferenceRecipe = async (reference: ReferenceRecipe) => {
+    if (!currentUserId) {
+      setError('Please log in to save recipes to your dashboard.');
+      return;
+    }
+
+    setSavingReferenceId(reference.id);
+    setError('');
+    setSaveFeedback('');
+
+    try {
+      const { error: insertError } = await supabase.from('saved_recipes').insert({
+        user_id: currentUserId,
+        title: reference.title,
+        description: reference.notes?.trim() || 'Saved from Chef Buddy pantry match.',
+        ingredients: reference.ingredients ?? [],
+        steps: reference.instructions ?? [],
+        source_ingredients: lastGeneratedIngredients || input.trim(),
+      });
+
+      if (insertError) {
+        throw new Error(insertError.message);
+      }
+
+      setSavedReferenceIds((prev) => Array.from(new Set([...prev, reference.id])));
+      setSaveFeedback('Pantry recipe saved to your dashboard!');
+    } catch (saveError) {
+      const message = saveError instanceof Error ? saveError.message : 'Unable to save pantry recipe right now.';
+      setError(message);
+    } finally {
+      setSavingReferenceId(null);
     }
   };
 
@@ -206,8 +261,94 @@ export default function ChatbotPage() {
                 </div>
               </div>
 
+              {referenceRecipes.length > 0 && (
+                <div className="mt-10 max-w-2xl mx-auto space-y-4">
+                  <div className="flex items-center gap-2 text-xs font-semibold tracking-[0.3em] uppercase text-orange-600">
+                    <span className="h-px w-8 bg-orange-300" />
+                    Pantry Matches
+                  </div>
+                  <div className="space-y-4">
+                    {referenceRecipes.map((reference) => {
+                      const referenceSaved = savedReferenceIds.includes(reference.id);
+
+                      return (
+                        <div
+                          key={reference.id}
+                          className="bg-gradient-to-br from-orange-600 via-orange-500 to-amber-400 text-white rounded-2xl border border-orange-200 p-6 shadow-xl"
+                        >
+                          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                              <p className="flex items-center gap-2 text-[0.65rem] uppercase tracking-[0.3em] text-white/80">
+                                <Info className="w-4 h-4" /> Reference Recipe
+                              </p>
+                              <h3 className="text-2xl font-semibold mt-2">{reference.title}</h3>
+                              <p className="text-sm text-white/80 mt-1">
+                                {reference.cuisine ?? 'Any cuisine'} · {(reference.mealType ?? []).join(', ') || 'Flexible meal'}
+                              </p>
+                              {reference.tags?.length ? (
+                                <div className="mt-2 flex flex-wrap gap-2">
+                                  {reference.tags.map((tag) => (
+                                    <span key={`${reference.id}-tag-${tag}`} className="text-[0.65rem] uppercase tracking-wide text-white bg-white/20 px-2 py-1 rounded-full">
+                                      {tag}
+                                    </span>
+                                  ))}
+                                </div>
+                              ) : null}
+                            </div>
+                            <div className="flex flex-col gap-2 items-start sm:items-end">
+                              {typeof reference.ragScore === 'number' && (
+                                <span className="text-xs font-semibold text-orange-700 bg-white/90 rounded-full px-3 py-1">
+                                  Match score {reference.ragScore.toFixed(2)}
+                                </span>
+                              )}
+                              <button
+                                type="button"
+                                onClick={() => handleSaveReferenceRecipe(reference)}
+                                disabled={referenceSaved || savingReferenceId === reference.id}
+                                className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full border border-white/80 text-orange-700 bg-white hover:bg-white/90 disabled:opacity-70 disabled:cursor-not-allowed"
+                              >
+                                {referenceSaved ? <BookmarkCheck className="w-4 h-4" /> : <BookmarkPlus className="w-4 h-4" />}
+                                {referenceSaved ? 'Saved' : savingReferenceId === reference.id ? 'Saving...' : 'Save Pantry Recipe'}
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="mt-6 grid gap-6 md:grid-cols-2">
+                            <div>
+                              <h4 className="text-sm font-semibold text-white">Ingredients from library</h4>
+                              <ul className="mt-2 list-disc list-inside space-y-1 text-sm text-white/90">
+                                {reference.ingredients.map((ingredient, index) => (
+                                  <li key={`${reference.id}-ref-ingredient-${index}`}>{ingredient}</li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            <div>
+                              <h4 className="text-sm font-semibold text-white">Instructions from library</h4>
+                              <ol className="mt-2 list-decimal list-inside space-y-1 text-sm text-white/90">
+                                {reference.instructions.map((instruction, index) => (
+                                  <li key={`${reference.id}-ref-step-${index}`}>{instruction}</li>
+                                ))}
+                              </ol>
+                            </div>
+                          </div>
+
+                          {reference.notes && (
+                            <p className="mt-4 text-xs text-white/80">Note: {reference.notes}</p>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
               {recipes.length > 0 && (
                 <div className="mt-8 space-y-6 max-w-2xl mx-auto">
+                  <div className="flex items-center gap-2 text-xs font-semibold tracking-[0.3em] uppercase text-slate-500">
+                    <span className="h-px w-8 bg-slate-300" />
+                    Anthropic Output
+                  </div>
                   {!currentUserId && (
                     <div className="p-4 bg-amber-50 text-amber-800 rounded-xl text-sm">
                       Sign in to save your favorite recipes and view them later on the dashboard.
@@ -217,11 +358,17 @@ export default function ChatbotPage() {
                     const isSaved = savedRecipeIds.includes(recipe.id);
 
                     return (
-                      <div key={recipe.id} className="bg-white rounded-2xl shadow-lg p-6">
+                      <div key={recipe.id} className="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                           <div>
-                            <h3 className="text-xl font-semibold text-gray-900">{recipe.title}</h3>
+                            <p className="text-[0.65rem] uppercase tracking-[0.3em] text-orange-500">Anthropic Suggestion</p>
+                            <h3 className="text-2xl font-semibold text-gray-900 mt-2">{recipe.title}</h3>
                             <p className="text-gray-600 mt-1">{recipe.description}</p>
+                            {recipe.inspiredBy && (
+                              <p className="mt-2 text-xs text-gray-500 font-mono">
+                                inspiredBy: <span className="text-orange-600">{recipe.inspiredBy}</span>
+                              </p>
+                            )}
                           </div>
                           <button
                             type="button"
